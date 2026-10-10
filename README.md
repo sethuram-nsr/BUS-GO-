@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # BusGo — basic multi-operator booking project
 
 A runnable learning starter: React + TypeScript + Vite frontend, Express JavaScript backend and SQLite database. Uses npm only. SQLite keeps setup simple; move to PostgreSQL when building the full platform.
@@ -78,3 +79,7 @@ For the full platform, add user authentication and server-side operator authoriz
 ## Verification in the authoring environment
 
 The booking database test passed. Full frontend compilation and Express integration could not be verified because npm registry access was blocked. Run npm install, npm test and npm run build on your machine.
+=======
+# BUS-GO-
+BUS GO
+>>>>>>> 6aaf28d4c698142f292fea59288053c42bc6bd44
