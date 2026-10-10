@@ -1,0 +1,1 @@
+{"name":"bus-booking-starter","private":true,"workspaces":["frontend","backend"],"engines":{"node":">=24"},"scripts":{"dev":"concurrently -k \"npm run dev -w backend\" \"npm run dev -w frontend\"","build":"npm run build -w frontend","test":"npm test -w backend"},"devDependencies":{"concurrently":"^9.2.0"},"dependencies":{"lucide-react":"^1.49.0"}}
