@@ -242,7 +242,7 @@ export default function SignUpPage() {
 
         <div className={styles.bottomNote}>
           <span>BusGo · Made for your next journey</span>
-          <span>Demo experience</span>
+          {/* <span>Demo experience</span> */}
         </div>
       </section>
     </div>

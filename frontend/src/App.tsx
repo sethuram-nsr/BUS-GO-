@@ -1,6 +1,7 @@
 import React, { useState, useEffect, type FormEvent } from 'react';
 import type { BookingConfirmation, Trip } from './types/booking';
-import { searchTrips, createBooking } from './api/busApi';
+import { searchTrips, createBooking, cacheTrips } from './api/busApi';
+import { isOffline, checkBackendHealth } from './api/demoMode';
 import { getTodayDateString } from './utils/date';
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
@@ -48,6 +49,12 @@ export const App: React.FC = () => {
   // Notifications
   const [errorMessage, setErrorMessage] = useState<string>('');
   const [successMessage, setSuccessMessage] = useState<string>('');
+  const [offlineMode, setOfflineMode] = useState<boolean>(false);
+
+  // Check backend health on mount
+  useEffect(() => {
+    checkBackendHealth().then((offline) => setOfflineMode(offline));
+  }, []);
 
   /**
    * Performs the trip search against backend API
@@ -69,6 +76,8 @@ export const App: React.FC = () => {
     try {
       const results = await searchTrips(fromCity, toCity, travelDate);
       setTrips(results);
+      cacheTrips(results); // cache for offline booking
+      setOfflineMode(isOffline());
     } catch (err) {
       setErrorMessage((err as Error).message || 'Unable to fetch trips. Please try again.');
     } finally {
@@ -224,6 +233,17 @@ export const App: React.FC = () => {
       <main className="main-content-wrapper">
         <Toast message={successMessage} type="success" onDismiss={() => setSuccessMessage('')} />
         <Toast message={errorMessage} onDismiss={() => setErrorMessage('')} />
+
+        {/* Offline / Demo mode banner */}
+        {/* {offlineMode && (
+          <div className="offline-banner" role="status">
+            <span className="offline-banner-icon">🔌</span>
+            <span>
+              <strong>Demo Mode</strong> — Backend offline. Showing sample bus data.
+              Login with <strong>sethuram2407@gmail.com</strong> / <strong>Sethu@123</strong>
+            </span>
+          </div>
+        )} */}
 
         {/* If booking is confirmed, display boarding pass ticket */}
         {confirmedBooking ? (
